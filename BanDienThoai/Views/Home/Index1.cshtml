@@ -1,0 +1,98 @@
+﻿@using BanDienThoai.Models;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<DMDienThoai>
+
+
+@{
+
+    ViewBag.Title = "Tìm kiếm nâng cao";
+    Layout = "~/Views/Shared/_LayoutSearchAdvance.cshtml";
+}
+
+
+<table>
+    <tr>
+        <td>
+            <div style="float:left;width=100%;margin-bottom:40px;height: auto;font: inherit;text-align:center;">
+                @{
+
+                    int i = 0;
+                    foreach (var item in Model)
+                    {
+
+                        i++;
+                        <div id="sanpham" class="list-group-item" style="height:250px">
+
+                            <a class="ex" href="@Url.Action("XemChiTiet","Home",new { @MaDienThoai=item.MaDienThoai} )">
+                                <div id="hinhanh"><img src="@Url.Content("~/Image/"+item.Anh)" width="150" height="150"></div>
+
+                            </a>
+                            <div id="thongtin"  style="height:40px">
+                                <a href="@Url.Action("XemChiTiet","Home",new { @MaDienThoai=item.MaDienThoai} )">
+                                    <div title="@item.TenDienThoai"><h4 style="color:black">@item.TenDienThoai</h4></div>
+                                </a>
+
+
+                            </div>
+                            <div id="thongtin">
+                                <div title="@item.DonGiaBan" style="color:red"><b>@string.Format("{0:N0}", (item.DonGiaBan)) ₫</b></div>
+                            </div>
+                        </div>
+                        if (i % 5 == 0)
+                        {
+                            <div style="float: left"></div>
+                        }
+
+                    }
+                }
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Trang @(Model.PageCount<Model.PageNumber?0: Model.PageNumber)/@Model.PageCount
+            <div class="MenuTrang">
+
+                @Html.PagedListPager(Model, page => Url.Action("Index1", new { page = page }))
+
+
+            </div>
+        </td>
+    </tr>
+</table>
+
+<style>
+    #sanpham {
+        float: left;
+        width: 180px;
+        margin-left: 3%;
+        margin-top: 5px;
+    }
+
+    #hinhanh {
+        width: 150px;
+        height: 150px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+
+    #thongtin {
+        padding-top: 0px;
+        padding-bottom: 0px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 10pt;
+        font-weight: 200;
+    }
+
+    .MenuTrang li {
+        color: black;
+        float: left;
+        padding: 0px 16px;
+        display: inline
+    }
+
+    h4 {
+        font-size: 16px;
+        font-weight: 700;
+    }
+</style>

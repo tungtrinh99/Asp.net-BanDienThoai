@@ -1,0 +1,136 @@
+﻿@using BanDienThoai.Models;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<DMDienThoai>
+@{
+    ViewBag.Title = "tren12trieu";
+    Layout = "~/Views/Shared/_LayoutDetails.cshtml";
+}
+
+<div>
+    <ul class="nav nav-tabs" style="margin-top:25px;font: inherit;width:1330px;margin-left:-120px;">
+        <li class="active"><a href="#">Tìm Theo</a></li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                Thương Hiệu
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="@Url.Action("iPhone","Home")">Iphone</a></li>
+                <li><a href="@Url.Action("samSung","Home")">SamSung</a></li>
+                <li><a href="@Url.Action("vsMart","Home")">Vsmart</a></li>
+                <li><a href="@Url.Action("xiaoMi","Home")">Xiaomi</a></li>
+                <li><a href="@Url.Action("bPhone","Home")">Bphone</a></li>
+                <li><a href="@Url.Action("lG","Home")">LG</a></li>
+                <li><a href="@Url.Action("hUawei","Home")">Huawei</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                Mức giá
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="@Url.Action("Duoi3trieu","Home")">Dưới 3 triệu</a></li>
+                <li><a href="@Url.Action("baden6trieu","Home")">Từ 3 đến 6 triệu</a></li>
+                <li><a href="@Url.Action("sauden9trieu","Home")">Từ 6 đến 9 triệu</a></li>
+                <li><a href="@Url.Action("chinden12trieu","Home")">Từ 9 đến 12 triệu</a></li>
+                <li><a href="@Url.Action("tren12trieu","Home")">Trên 12 triệu</a></li>
+            </ul>
+        </li>
+
+        <li class="dropdown" style="float:right;margin-right:15px">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                Sắp Xếp
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Giá giảm dần", "tren12trieu", new { sortOrder = ViewBag.GiamSortParm })</li>
+                <li>@Html.ActionLink("Giá tăng dần", "tren12trieu", new { sortOrder = ViewBag.TangSortParm })</li>
+                <li>@Html.ActionLink("Tên A-Z", "tren12trieu", new { sortOrder = ViewBag.azSortParm })</li>
+                <li>@Html.ActionLink("Tên Z-A", "tren12trieu", new { sortOrder = ViewBag.zaSortParm })</li>
+
+            </ul>
+
+        </li>
+
+    </ul>
+</div>
+<table>
+    <tr>
+        <td>
+            <div style="float:left;width=100%;margin-bottom:40px;font: inherit;text-align:center;width:1200px">
+                @{
+                    int i = 0;
+                    foreach (var item in Model)
+                    {
+                        i++;
+                        <div id="sanpham" class="list-group-item" style="height:250px">
+                            <a class="ex" href="@Url.Action("XemChiTiet","Home",new { @MaDienThoai=item.MaDienThoai} )">
+                                <div id="hinhanh"><img src="@Url.Content("~/Image/"+item.Anh)" width="150" height="150"></div>
+
+                            </a>
+                            <div id="thongtin" style="height:40px">
+                                <a href="@Url.Action("XemChiTiet","Home",new { @MaDienThoai=item.MaDienThoai} )">
+                                    <div title="@item.TenDienThoai"><h4 style="color:black">@item.TenDienThoai</h4></div>
+                                </a>
+
+
+                            </div>
+                            <div id="thongtin">
+                                <div title="@item.DonGiaBan" style="color:red"><b>@string.Format("{0:N0}", (item.DonGiaBan)) ₫</b></div>
+                            </div>
+                        </div>
+                        if (i % 5 == 0)
+                        {
+                            <div style="clear:both">
+
+                            </div>
+                        }
+                    }
+                }
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Trang @(Model.PageCount<Model.PageNumber?0: Model.PageNumber)/@Model.PageCount
+            <div class="MenuTrang">
+
+                @Html.PagedListPager(Model, page => Url.Action("tren12trieu", new { sortOrder = ViewBag.CurrentSort, page = page }))
+
+
+            </div>
+        </td>
+    </tr>
+</table>
+<style>
+    #sanpham {
+        float: left;
+        width: 180px;
+        margin-left: 3%;
+        margin-top: 5px;
+    }
+
+    #hinhanh {
+        width: 150px;
+        height: 150px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+
+    #thongtin {
+        padding-top: 0px;
+        padding-bottom: 0px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 10pt;
+        font-weight: 200;
+    }
+
+    .MenuTrang li {
+        color: black;
+        float: left;
+        padding: 0px 16px;
+        display: inline
+    }
+</style>
+

@@ -1,0 +1,115 @@
+﻿@using BanDienThoai.Models;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<DMDienThoai>
+@{
+    ViewBag.Title = "EMUI";
+    Layout = "~/Views/Shared/_LayoutDetails.cshtml";
+
+}
+
+<div>
+    <ul class="nav nav-tabs" style="margin-top:25px;font: inherit;width:1330px;margin-left:-120px;">
+        <li class="active" style="background:#009a82;color:white"><a href="#"><strong>Hệ điều hành Emui10</strong></a></li>
+
+
+
+        <li class="dropdown" style="float:right;margin-right:15px">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                Sắp Xếp
+                <span class="caret"></span>
+            </a>
+
+            <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Giá giảm dần", "emui", new { sortOrder = ViewBag.GiamSortParm })</li>
+                <li>@Html.ActionLink("Giá tăng dần", "emui", new { sortOrder = ViewBag.TangSortParm })</li>
+                <li>@Html.ActionLink("Tên A-Z", "emui", new { sortOrder = ViewBag.azSortParm })</li>
+                <li>@Html.ActionLink("Tên Z-A", "emui", new { sortOrder = ViewBag.zaSortParm })</li>
+
+            </ul>
+
+        </li>
+
+    </ul>
+</div>
+
+<table style="margin-top:50px;">
+
+    <tr>
+        <td>
+            <div style="float:left;width=100%;margin-bottom:40px;height: auto;font: inherit;text-align:center;;width:1200px">
+                @{
+
+                    int i = 0;
+                    foreach (var item in Model)
+                    {
+
+                        i++;
+                        <div id="sanpham" class="list-group-item" style="height:250px">
+
+                            <a class="ex" href="@Url.Action("XemChiTiet","Home",new { @MaDienThoai=item.MaDienThoai} )">
+                                <div id="hinhanh"><img src="@Url.Content("~/Image/"+item.Anh)" width="150" height="150"></div>
+
+                            </a>
+                            <div id="thongtin" style="height:40px">
+                                <a href="@Url.Action("XemChiTiet","Home",new { @MaDienThoai=item.MaDienThoai} )">
+                                    <div title="@item.TenDienThoai"><h4 style="color:black">@item.TenDienThoai</h4></div>
+                                </a>
+
+
+                            </div>
+                            <div id="thongtin">
+                                <div title="@item.DonGiaBan" style="color:red"><b>@string.Format("{0:N0}", (item.DonGiaBan)) ₫</b></div>
+                            </div>
+                        </div>
+                        if (i % 5 == 0)
+                        {
+                            <div style="clear:both"></div>
+                        }
+
+                    }
+                }
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Trang @(Model.PageCount<Model.PageNumber?0: Model.PageNumber)/@Model.PageCount
+            <div class="MenuTrang">
+
+                @Html.PagedListPager(Model, page => Url.Action("emui", new { sortOrder = ViewBag.CurrentSort, page = page }))
+
+
+            </div>
+        </td>
+    </tr>
+</table>
+
+<style>
+    #sanpham {
+        float: left;
+        width: 180px;
+        margin-left: 3%;
+        margin-top: 5px;
+    }
+
+    #hinhanh {
+        width: 150px;
+        height: 150px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+
+    #thongtin {
+        padding-top: 0px;
+        padding-bottom: 0px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 10pt;
+        font-weight: 200;
+    }
+
+    .MenuTrang li {
+        color: black;
+        float: left;
+        padding: 0px 16px;
+        display: inline
+    }

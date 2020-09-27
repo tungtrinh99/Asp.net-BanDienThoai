@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DienThoaiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="DMDienThoai">
+    <Key>
+      <PropertyRef Name="MaDienThoai" />
+    </Key>
+    <Property Name="MaDienThoai" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TenDienThoai" Type="nvarchar" MaxLength="50" />
+    <Property Name="MaHangSX" Type="nvarchar" MaxLength="50" />
+    <Property Name="MaNuocSX" Type="nvarchar" MaxLength="50" />
+    <Property Name="ThoiGianBaoHanh" Type="nchar" MaxLength="10" />
+    <Property Name="Anh" Type="nvarchar" MaxLength="50" />
+    <Property Name="MaRam" Type="nvarchar" MaxLength="50" />
+    <Property Name="MaRom" Type="nvarchar" MaxLength="50" />
+    <Property Name="MaHeDieuHanh" Type="nvarchar" MaxLength="50" />
+    <Property Name="DonGiaBan" Type="int" />
+    <Property Name="MaGiaTien" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="HangSanXuat">
+    <Key>
+      <PropertyRef Name="MaHangSX" />
+    </Key>
+    <Property Name="MaHangSX" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TenHangSx" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="HeDieuHanh">
+    <Key>
+      <PropertyRef Name="MaHeDieuHanh" />
+    </Key>
+    <Property Name="MaHeDieuHanh" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TenHeDieuHanh" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Image">
+    <Key>
+      <PropertyRef Name="MaDienThoai" />
+    </Key>
+    <Property Name="MaDienThoai" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Anh1" Type="nvarchar" MaxLength="50" />
+    <Property Name="Anh2" Type="nvarchar" MaxLength="50" />
+    <Property Name="Anh3" Type="nvarchar" MaxLength="50" />
+    <Property Name="Anh4" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="NuocSanXuat">
+    <Key>
+      <PropertyRef Name="MaNuocSX" />
+    </Key>
+    <Property Name="MaNuocSX" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TenNuocSX" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Ramm">
+    <Key>
+      <PropertyRef Name="MaRam" />
+    </Key>
+    <Property Name="MaRam" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="BoNhoRam" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Rom">
+    <Key>
+      <PropertyRef Name="MaRom" />
+    </Key>
+    <Property Name="MaRom" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="BoNhoRom" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="ThongSoDienThoai">
+    <Key>
+      <PropertyRef Name="MaDienThoai" />
+    </Key>
+    <Property Name="MaDienThoai" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ManHinh" Type="nvarchar" MaxLength="50" />
+    <Property Name="HeDieuHanh" Type="nvarchar" MaxLength="50" />
+    <Property Name="CameraSau" Type="nvarchar" MaxLength="50" />
+    <Property Name="CameraTruoc" Type="nvarchar" MaxLength="50" />
+    <Property Name="CPU" Type="nvarchar" MaxLength="50" />
+    <Property Name="RAM" Type="nvarchar" MaxLength="50" />
+    <Property Name="ROM" Type="nvarchar" MaxLength="50" />
+    <Property Name="Pin" Type="nvarchar" MaxLength="50" />
+    <Property Name="Sim" Type="nvarchar" MaxLength="50" />
+    <Property Name="NamSanXuat" Type="int" />
+  </EntityType>
+  <EntityType Name="Tien">
+    <Key>
+      <PropertyRef Name="MaGiaTien" />
+    </Key>
+    <Property Name="MaGiaTien" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="GiaTien" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_Anh_DMDienThoai">
+    <End Role="DMDienThoai" Type="Self.DMDienThoai" Multiplicity="1" />
+    <End Role="Image" Type="Self.Image" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="DMDienThoai">
+        <PropertyRef Name="MaDienThoai" />
+      </Principal>
+      <Dependent Role="Image">
+        <PropertyRef Name="MaDienThoai" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DMDienThoai_HeDieuHanh">
+    <End Role="HeDieuHanh" Type="Self.HeDieuHanh" Multiplicity="0..1" />
+    <End Role="DMDienThoai" Type="Self.DMDienThoai" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HeDieuHanh">
+        <PropertyRef Name="MaHeDieuHanh" />
+      </Principal>
+      <Dependent Role="DMDienThoai">
+        <PropertyRef Name="MaHeDieuHanh" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DMDienThoai_Ramm">
+    <End Role="Ramm" Type="Self.Ramm" Multiplicity="0..1" />
+    <End Role="DMDienThoai" Type="Self.DMDienThoai" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ramm">
+        <PropertyRef Name="MaRam" />
+      </Principal>
+      <Dependent Role="DMDienThoai">
+        <PropertyRef Name="MaRam" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DMDienThoai_Rom">
+    <End Role="Rom" Type="Self.Rom" Multiplicity="0..1" />
+    <End Role="DMDienThoai" Type="Self.DMDienThoai" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rom">
+        <PropertyRef Name="MaRom" />
+      </Principal>
+      <Dependent Role="DMDienThoai">
+        <PropertyRef Name="MaRom" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DMDienThoai_Tien">
+    <End Role="Tien" Type="Self.Tien" Multiplicity="0..1" />
+    <End Role="DMDienThoai" Type="Self.DMDienThoai" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tien">
+        <PropertyRef Name="MaGiaTien" />
+      </Principal>
+      <Dependent Role="DMDienThoai">
+        <PropertyRef Name="MaGiaTien" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DMTivi_HangSanXuat">
+    <End Role="HangSanXuat" Type="Self.HangSanXuat" Multiplicity="0..1" />
+    <End Role="DMDienThoai" Type="Self.DMDienThoai" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HangSanXuat">
+        <PropertyRef Name="MaHangSX" />
+      </Principal>
+      <Dependent Role="DMDienThoai">
+        <PropertyRef Name="MaHangSX" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DMTivi_NuocSanXuat">
+    <End Role="NuocSanXuat" Type="Self.NuocSanXuat" Multiplicity="0..1" />
+    <End Role="DMDienThoai" Type="Self.DMDienThoai" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NuocSanXuat">
+        <PropertyRef Name="MaNuocSX" />
+      </Principal>
+      <Dependent Role="DMDienThoai">
+        <PropertyRef Name="MaNuocSX" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ThongSoDienThoai_DMDienThoai">
+    <End Role="DMDienThoai" Type="Self.DMDienThoai" Multiplicity="1" />
+    <End Role="ThongSoDienThoai" Type="Self.ThongSoDienThoai" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="DMDienThoai">
+        <PropertyRef Name="MaDienThoai" />
+      </Principal>
+      <Dependent Role="ThongSoDienThoai">
+        <PropertyRef Name="MaDienThoai" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DienThoaiModelStoreContainer">
+    <EntitySet Name="DMDienThoai" EntityType="Self.DMDienThoai" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HangSanXuat" EntityType="Self.HangSanXuat" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HeDieuHanh" EntityType="Self.HeDieuHanh" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Image" EntityType="Self.Image" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NuocSanXuat" EntityType="Self.NuocSanXuat" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ramm" EntityType="Self.Ramm" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rom" EntityType="Self.Rom" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ThongSoDienThoai" EntityType="Self.ThongSoDienThoai" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tien" EntityType="Self.Tien" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Anh_DMDienThoai" Association="Self.FK_Anh_DMDienThoai">
+      <End Role="DMDienThoai" EntitySet="DMDienThoai" />
+      <End Role="Image" EntitySet="Image" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DMDienThoai_HeDieuHanh" Association="Self.FK_DMDienThoai_HeDieuHanh">
+      <End Role="HeDieuHanh" EntitySet="HeDieuHanh" />
+      <End Role="DMDienThoai" EntitySet="DMDienThoai" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DMDienThoai_Ramm" Association="Self.FK_DMDienThoai_Ramm">
+      <End Role="Ramm" EntitySet="Ramm" />
+      <End Role="DMDienThoai" EntitySet="DMDienThoai" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DMDienThoai_Rom" Association="Self.FK_DMDienThoai_Rom">
+      <End Role="Rom" EntitySet="Rom" />
+      <End Role="DMDienThoai" EntitySet="DMDienThoai" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DMDienThoai_Tien" Association="Self.FK_DMDienThoai_Tien">
+      <End Role="Tien" EntitySet="Tien" />
+      <End Role="DMDienThoai" EntitySet="DMDienThoai" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DMTivi_HangSanXuat" Association="Self.FK_DMTivi_HangSanXuat">
+      <End Role="HangSanXuat" EntitySet="HangSanXuat" />
+      <End Role="DMDienThoai" EntitySet="DMDienThoai" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DMTivi_NuocSanXuat" Association="Self.FK_DMTivi_NuocSanXuat">
+      <End Role="NuocSanXuat" EntitySet="NuocSanXuat" />
+      <End Role="DMDienThoai" EntitySet="DMDienThoai" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ThongSoDienThoai_DMDienThoai" Association="Self.FK_ThongSoDienThoai_DMDienThoai">
+      <End Role="DMDienThoai" EntitySet="DMDienThoai" />
+      <End Role="ThongSoDienThoai" EntitySet="ThongSoDienThoai" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,203 @@
+﻿@model BanDienThoai.Models.DMDienThoai
+
+
+@{
+    ViewBag.Title = "Xem chi tiết";
+    Layout = "~/Views/Shared/_LayoutDetails.cshtml";
+}
+<link rel="stylesheet" href="~/Content/magiczoom.css">
+<div style="border-bottom:solid 1px #eee">
+    <h2 itemprop="name">
+        Điện thoại
+        <strong>@Html.DisplayFor(modelItem => Model.TenDienThoai)</strong>
+    </h2>
+</div>
+
+
+<div style="margin-top: 80px ">
+    <div class="row ">
+        <div class="col-sm-6">
+
+            <div class="image">
+                @*<figure class="zoom" style="background:url(/Image/@Model.Anh)" onmousemove="zoom(event)" ontouchmove="zoom(event)">
+                    <a href="/Image/@Model.Anh">
+                        <img src="/Image/@Model.Anh" />
+                    </a>
+
+                </figure>*@
+                <div class="image-more" style="margin-left:20px;margin-top:-1px">
+                    <ul class="row">
+
+
+
+                        <div class="thumbnail" id="pic-1"><img class="bigimg" id="mainImage" src="~/Image/@Model.Anh" /></div>
+
+                        <div class="khungangnho">
+                            <a data-target="#pic-1" data-toggle="tab"><img class="smallimg" onmouseover="document.getElementById('mainImage').src = '/Image/@Model.Anh'" src="~/Image/@Model.Anh" /></a>
+
+                            <a data-target="#pic-2" data-toggle="tab"><img class="smallimg" onmouseover="document.getElementById('mainImage').src = '/Image2/@Model.Image.Anh1'" src="~/Image2/@Model.Image.Anh1" /></a>
+                            <a data-target="#pic-2" data-toggle="tab"><img class="smallimg" onmouseover="document.getElementById('mainImage').src = '/Image2/@Model.Image.Anh2'" src="~/Image2/@Model.Image.Anh2" /></a>
+                            <a data-target="#pic-2" data-toggle="tab"><img class="smallimg" onmouseover="document.getElementById('mainImage').src = '/Image2/@Model.Image.Anh3'" src="~/Image2/@Model.Image.Anh3" /></a>
+                            
+                        </div>
+                        <style>
+                            .bigimg {
+                                width: 400px;
+                                height: 400px;
+                            }
+
+                            .smallimg {
+                                width: 50px;
+                                height: 50px;
+                            }
+
+                            .thumbnail {
+                                width: 400px;
+                                height: 400px;
+                                overflow: hidden;
+                                border: 1px solid #e5e5e5;
+                            }
+
+                                .thumbnail img {
+                                    width: 100%;
+                                    height: 100%;
+                                    transition-duration: 0.5s;
+                                    -webkit-transition-duration: 0.5s;
+                                    -moz-transition-duration: 0.5s;
+                                    -o-transition-duration: 0.5s;
+                                    -ms-transition-duration: 0.5s;
+                                }
+
+                                    .thumbnail img:hover {
+                                        transform: scale(1.2);
+                                        -webkit-transform: scale(1.2);
+                                        -moz-transform: scale(1.2);
+                                        -o-transform: scale(1.2);
+                                        -ms-transform: scale(1.2);
+                                        cursor: pointer;
+                                    }
+
+                            .khungangnho {
+                                width: 400px;
+                                height: 51  x;
+                                border: 1px solid #e5e5e5;
+                                overflow: auto;
+                            }
+                        </style>
+                        @*<a href="/Image2/@Model.Image.Anh1" >
+                                <img style="border:solid 1px #ff0000;" height="70px" width="60px" src="/Image2/@Model.Image.Anh1" />
+                            </a>
+                            <a href="/Image2/@Model.Image.Anh2">
+                                <img style="border:solid 1px #ff0000" height="70px" width="60px" src="/Image2/@Model.Image.Anh2" />
+                            </a>
+                            <a href="/Image2/@Model.Image.Anh3">
+                                <img style="border:solid 1px #ff0000" height="70px" width="60px" src="/Image2/@Model.Image.Anh3" />
+                            </a>*@
+
+
+                    </ul>
+                </div>
+            </div>
+
+            <div style="margin-top:50px; border-top:solid 1px #eee;margin-left:40px"></div>
+            <div class="product-prop">
+                <ul>
+                    <h3 style="border:solid 1px black;padding :20px;background:#808080;color:white">Thông số cơ bản <strong>@Html.DisplayFor(modelItem => Model.TenDienThoai)</strong></h3>
+                    <div class="simple-prop">
+                        <p style="border-bottom:solid 1px #eee"><label>Hãng sản xuất</label>: <span>@Html.DisplayFor(modelItem => Model.HangSanXuat.TenHangSx)</span></p>
+                        <p style="border-bottom:solid 1px #eee"><label>Kích thước màn hình:</label> <span> @Html.DisplayFor(modelItem => Model.ThongSoDienThoai.ManHinh)</span></p>
+
+                        <p style="border-bottom:solid 1px #eee"><label>Hệ điều hành:</label> <span>@Html.DisplayFor(modelItem => Model.ThongSoDienThoai.HeDieuHanh)</span></p>
+                        <p style="border-bottom:solid 1px #eee"><label>Chip xử lý (CPU):</label> <span>@Html.DisplayFor(modelItem => Model.ThongSoDienThoai.CPU)</span></p>
+                        <p style="border-bottom:solid 1px #eee"><label>RAM:</label> <span>@Html.DisplayFor(modelItem => Model.ThongSoDienThoai.RAM)</span></p>
+                        <p style="border-bottom:solid 1px #eee"><label>Máy ảnh chính:</label> <span>@Html.DisplayFor(modelItem => Model.ThongSoDienThoai.CameraSau)</span></p>
+                        <p style="border-bottom:solid 1px #eee"><label>Máy ảnh phụ:</label> <span>@Html.DisplayFor(modelItem => Model.ThongSoDienThoai.CameraTruoc)</span></p>
+                        <p style="border-bottom:solid 1px #eee"><label>Bộ nhớ trong:</label> <span>@Html.DisplayFor(modelItem => Model.ThongSoDienThoai.ROM)</span></p>
+                        <p style="border-bottom:solid 1px #eee"><label>Dung lượng pin (mAh):</label> <span>@Html.DisplayFor(modelItem => Model.ThongSoDienThoai.Pin)</p>
+                        <p style="border-bottom:solid 1px #eee"><label>Năm Sản Xuất:</label> <span>@Html.DisplayFor(modelItem => Model.ThongSoDienThoai.NamSanXuat)</p>
+                    </div>
+                </ul>
+
+
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div style="border:solid 1px #eee;padding:10px;height:400px">
+                <div style="        color: red;    display: inline-block;     overflow: hidden;     font-size: 24px;       color: #e10c00;     vertical-align: middle;       margin-right: 10px;">
+                    <strong>Giá : @string.Format("{0:N0}", Model.DonGiaBan) ₫</strong>
+                </div>
+                <div class="block">
+                    <h4><strong>Khuyến mại</strong></h4><ul class="ltsPromote">
+                        <li><i class="fa fa-gift"></i> <a href="https://localhost:44344/Home/XemChiTiet?MaDienThoai=IP03">Mua thêm Iphone SE 2020 256 GB chính hãng - 1 đổi 1 trong 12 tháng với giá tốt chỉ từ 10.290.000đ</a></li>
+                        <li><i class="fa fa-gift"></i> <a href="https://localhost:44344/Home/XemChiTiet?MaDienThoai=IP01">Mua thêm Iphone 11 Pro Max 512 GB chính hãng - 1 đổi 1 trong 12 tháng với giá tốt chỉ từ 40.990.000đ</a></li>
+                        <li><i class="fa fa-gift"></i> <a href="https://localhost:44344/Home/XemChiTiet?MaDienThoai=XM03">Mua thêm Xiaomi Black Shark 3 Pro chính hãng - 1 đổi 1 trong 12 tháng với giá tốt chỉ từ 25.000.000đ</a></li>
+                    </ul>
+                </div>
+                <div class="block">
+                    <h4><strong>Bảo hành</strong></h4><p class="link-color">
+                        - Bảo hành 12 tháng tại cửa hàng và nhà phân phối. Bao sài đổi trả 15 ngày đầu <br /> [<a target="_blank" href="@Url.Action("XemBanDo1","Home")">Xem địa chỉ ở Hà Nội tại đây</a>]
+                        <br /> [<a target="_blank" href="@Url.Action("XemBanDo2","Home")">Xem địa chỉ ở Hồ Chí Minh tại đây</a>]
+                    </p>
+                </div>
+                <a class="big-button button-red left" onclick="addToCart()" style="margin-top: 10px;   color: #fff;  background:red;  font-size: 14px; padding: 8px 5px;  line-height: 18px;  width: 100%;  border-radius: 5px; display: block;   text-align: center;  cursor: pointer;  margin-top:10px">
+                    <strong>MUA NGAY</strong>
+                    <br>
+                    (Giao hàng tận nơi - Giá tốt - An toàn)
+                </a>
+            </div>
+
+
+            @*<div class="block" style="margin-top:100px"><div class="head-block"><h3><strong>Sản phẩm HOT</strong></h3></div><ul class="other-device"><li><a class="img" href="~/Image/hwi9s.jpg"><img src="~/Image/hwi9s.jpg" height="60px" width="60px"></a><p class="name"><a href="https://localhost:44344/Home/XemChiTiet?MaDienThoai=HW04">Huawei Y9s 2019. </a> <span class="compare">  </span></p><p class="price">5.990.000 ₫</p></li><li><a class="img" href="~/Image/p40pro.jpg"><img src="~/Image/p40pro.jpg" height="60px" width="60px"></a><p class="name"><a href="https://localhost:44344/Home/XemChiTiet?MaDienThoai=HW01">Huawei P40 Pro </a></p><p class="price">23.999.000 ₫</p></li><li><a class="img" href="~/Image/p30pro.jpg"><img src="~/Image/p30pro.jpg" height="60px" width="60px"></a><p class=" name"><a href="img src="https://localhost:44344/Home/XemChiTiet?MaDienThoai=HW03">Huawei P30 Pro</a></p><p class="price">19.540.000 ₫</p></li></ul></div>*@
+
+        </div>
+
+    </div>
+
+
+</div>
+<style>
+    .label {
+        color: #333;
+    }
+
+
+
+    li {
+        list-style: none;
+    }
+
+    figure.zoom {
+        background-position: 50% 50%;
+        position: relative;
+        width: 400px;
+        overflow: hidden;
+        cursor: zoom-in;
+    }
+
+        figure.zoom img:hover {
+            opacity: 0;
+        }
+
+        figure.zoom img {
+            transition: opacity 0.5s;
+            display: block;
+            width: 100%;
+        }
+
+    .image-more {
+        margin-top: 25px;
+        margin-left: -60px;
+    }
+</style>
+<script @*src="~/Scripts/zoom/magiczoom.js"*@>
+    function zoom(e) {
+        var zoomer = e.currentTarget;
+        e.offsetX ? offsetX = e.offsetX : offsetX = e.touches[0].pageX
+        e.offsetY ? offsetY = e.offsetY : offsetX = e.touches[0].pageX
+        x = (offsetX / zoomer.offsetWidth) * 100
+        y = (offsetY / zoomer.offsetHeight) * 100
+        zoomer.style.backgroundPosition = x + "% " + y + "%";
+    }
+
+</script>
+

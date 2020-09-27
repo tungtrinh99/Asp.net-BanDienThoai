@@ -1,0 +1,540 @@
+﻿@{BanDienThoai.Models.DienThoaiEntities db = new BanDienThoai.Models.DienThoaiEntities();
+    ViewBag.MaNuocSX = new SelectList(db.NuocSanXuats.ToList().OrderBy(n => n.TenNuocSX), "MaNuocSX", "TenNuocSX");
+    ViewBag.MaHangSX = new SelectList(db.HangSanXuats.ToList().OrderBy(n => n.TenHangSx),"MaHangSX","TenHangSx");
+    ViewBag.MaRam = new SelectList(db.Ramms.ToList().OrderBy(n => n.BoNhoRam), "MaRam", "BoNhoRam");
+    ViewBag.MaRom = new SelectList(db.Roms.ToList().OrderBy(n => n.BoNhoRom), "MaRom", "BoNhoRom");
+    ViewBag.MaHeDieuHanh = new SelectList(db.HeDieuHanhs.ToList().OrderBy(n => n.TenHeDieuHanh), "MaHeDieuHanh", "TenHeDieuHanh");
+    ViewBag.MaGiaTien = new SelectList(db.Tiens.ToList().OrderBy(n => n.GiaTien), "MaGiaTien", "GiaTien");
+    }
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <title>@ViewBag.Title</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+        <script src="~/Scripts/bootstrap.min.js"></script>
+        <style>
+            html{
+                scroll-behavior : smooth;
+            }
+            .fakeimg {
+                height: 200px;
+                background: #aaa;
+            }
+
+#myBtn {
+        display: none;
+                position: fixed;
+        bottom: 200px;
+                right: 30px;
+                z-index: 99;
+                font-size: 20px;
+                border: none;
+                outline: none;
+                background-color: #555;
+                color: white;
+                cursor: pointer;
+                padding: 6px;
+                border-radius: 2px;
+            }
+
+#myBtn:hover {
+    background-color: orange;
+                }
+
+            .box-menu-brand {
+                height: auto;
+                margin-top: 0;
+                margin-bottom: -7px;
+                padding: 0;
+                overflow: hidden;
+                background: #ffffff;
+                padding: 5px 5px;
+            }
+
+            .dropbtn {
+                border-color: white;
+                background: linear-gradient(#10473f,#00483e);
+                padding: 13px;
+    font-size: 16px;
+                cursor: pointer;
+                border-radius: 5px;
+            }
+
+            .dropdown {
+                position: relative;
+                display: inline-block;
+                float: right;
+            }
+
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                right: 0;
+                background-color: #f9f9f9;
+                min-width: 200px;
+                box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+                border-radius: 5px
+            }
+
+                .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+                    .dropdown-content a:hover {
+                        background-color: #f1f1f1;
+                    }
+
+            .dropdown:hover .dropdown-content {
+                display: block;
+            }
+
+            .dropdown:hover .dropbtn {
+                background: linear-gradient(#10473f,#00483e);
+            }
+        </style>
+    </head>
+    <body>
+
+
+        <nav class="navbar navbar-default" style="background:linear-gradient(#10473f,#00483e);">
+            <div class="container-fluid">
+                <div class="navbar-header">
+
+                    <a class="navbar-brand" href="@Url.Action("Index","Home")"><i style="color:white" class="fa fa-home" aria-hidden="true"></i></a>
+
+                </div>
+
+
+                <ul class="nav navbar-nav" style="
+        padding: 6px;
+        border: none;
+        margin-top: 2.5px;
+        margin-right: 0px;
+        font-size: 17px;">
+                    <li>
+                        @using (Html.BeginForm("timkiem", "Home", FormMethod.Get))
+                        {
+                            <form class="form-inline my-2 my-lg-0" style="margin-righ: 50%">
+
+                                @Html.TextBox("SearchString", "", htmlAttributes: new { @class = "TextBoxTimKiem" })
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="color:black"><i class="fa fa-search" aria-hidden="true"></i></button>
+                            </form>
+
+                        }
+
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="@Url.Action("Index1","Home")" style="color:white"><i class="fa fa-search" aria-hidden="true"></i></i> Tìm Kiếm Nâng Cao</a></li>
+                    @*<li><a href="#" style="color:white"><span class="glyphicon glyphicon-user"></span> Đăng Nhập</a></li>
+
+                    <li><a href="#" style="color:white"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Giỏ Hàng</a></li>*@
+                </ul>
+
+
+            </div>
+        </nav>
+
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+                <li data-target="#myCarousel" data-slide-to="3"></li>
+            </ol>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                <div class="item active">
+                    <a href="@Url.Action("xiaoMi","Home")"> <img src="~/Image/qcxiaomi.jpg" alt="xm" style="height:100% ; width:100% ; text-align:center"></a>
+
+
+                </div>
+
+                <div class="item">
+
+                    <a href="@Url.Action("samSung","Home")">
+                        <img src="~/Image/qcS20.png" alt="s20" style="height: 100%;width: 100%">
+                    </a>
+
+
+
+                </div>
+
+                <div class="item">
+                    <a href="@Url.Action("vsMart","Home")"> <img src="~/Image/qcvsmart.jpg" alt="s20" style="height:100% ; width:100% "></a>
+
+
+                </div>
+
+                <div class="item">
+                    <a href="@Url.Action("vsMart","Home")">  <img src="~/Image/pcnote10.jpg" alt="note10" style="height:100% ; width:100% ; text-align:center"></a>
+
+
+                </div>
+            </div>
+
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        <div style="margin-top:15px;text-align:center">
+            <a href="@Url.Action("samSung","Home")">
+                <img width="100%" src="~/Image/banner.gif" />
+            </a>
+        </div>
+        <nav class="row" style="margin-top:20px; width:auto;text-align:center">
+
+            <div class="col-lg-2 col-md-2"></div>
+            <div style="border: solid 1px black;padding:1px;border-radius: 5px; text-align:center;margin-right:2px" class="col-lg-2 col-md-2"><a href="@Url.Action("iPhone","Home")"><img src="~/Image/iPhone.jpg" /></a></div>
+            <div style="border: solid 1px black;padding:1px;border-radius: 5px;text-align:center;margin-right:2px" class="col-lg-2 col-md-2"><a href="@Url.Action("samSung","Home")"><img src="~/Image/Samsung.jpg" /></a></div>
+            <div style="border: solid 1px black;padding:1px;border-radius: 5px;text-align:center;margin-right:2px" class="col-lg-2 col-md-2"><a href="@Url.Action("vsMart","Home")"><img src="~/Image/Vsmart.png" /></a></div>
+            <div style="border: solid 1px black;padding:1px;border-radius: 5px;text-align:center;" class="col-lg-2 col-md-2"><a href="@Url.Action("xiaoMi","Home")"><img src="~/Image/Realme.png" /></a></div>
+            <div class="col-lg-2 col-md-2"></div>
+        </nav>
+
+        <div class="section-header" style="margin-top:20px;line-height: 20px}">
+            <div class="col-lg-2 col-md-2"></div>
+            <div class="col-lg-8 col-md-8" style="text-align:center">
+                <div class="left" style="float:left;">
+                    <h4>Danh mục sản phẩm</h4>
+                </div>
+
+                <div class="left filter-panel">
+
+                    <a class="btn btn-default btn-sm" href="@Url.Action("iPhone","Home")">iPhone</a>
+                    <a class="btn btn-default btn-sm" href="@Url.Action("samSung","Home")">Samsung</a>
+                    <a class="btn btn-default btn-sm" href="@Url.Action("xiaoMi","Home")">Xiaomi</a>
+
+                    <a class="btn btn-default btn-sm" href="@Url.Action("vsMart","Home")">Vsmart</a>
+                    <a class="btn btn-default btn-sm" href="@Url.Action("bPhone","Home")">Bphone</a>
+                    <a class="btn btn-default btn-sm" href="@Url.Action("lG","Home")">LG</a>
+                    <a class="btn btn-default btn-sm" href="@Url.Action("hUawei","Home")">Huawei</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+
+            <div class="col-lg-2 col-md-2"></div>
+        </div>
+
+
+        
+
+        <nav style="margin-top:100px;margin-left:530px"><h4><strong>@ViewBag.ThongBao</strong></h4></nav>
+        
+        <div class="container" style="margin-top:20px">
+            <div class="row" style="margin:5px">
+                <div class="col-sm-4" style="border:1px  solid #eee;margin-top:5px">
+                    <div>
+                        <h3 style="margin-left:35px"><strong>Tìm kiếm nâng cao</strong></h3>
+                        @using (Html.BeginForm("KetQuaTimKiem", "Home", FormMethod.Post))
+                        {
+
+                    <div class="form-horizontal" style="margin-left:50px;margin-top:30px">
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div class="form-group">
+                            <p><b>Tên sản phẩm :</b></p>
+                            <div class="col-md-10">
+                                @Html.TextBox("txtTimKiem", "", htmlAttributes: new { @class = "TextBoxTimKiem", @placeholder = "Nhập vào từ khóa tìm kiếm" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <p><b>Nước Sản Xuất :</b></p>
+                            <div class="col-md-10">
+                                @Html.DropDownList("MaNuocSX")
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <p><b>Hãng Sản Xuất :</b></p>
+                            <div class="col-md-10">
+                                @Html.DropDownList("MaHangSX")
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p><b>Bộ Nhớ RAM :</b></p>
+                            <div class="col-md-10">
+                                @Html.DropDownList("MaRam")
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p><b>Bộ nhớ ROM :</b></p>
+                            <div class="col-md-10">
+                                @Html.DropDownList("MaRom")
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <p><b>Hệ Điều Hành :</b></p>
+                            <div class="col-md-10">
+                                @Html.DropDownList("MaHeDieuHanh")
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p><b>Giá Tiền :</b></p>
+                            <div class="col-md-10">
+                                @Html.DropDownList("MaGiaTien")
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10" style="margin-left:60px">
+                                <input style="background:#555;color:white;" type="submit" value="Tìm Kiếm" class="btn btn-default" />
+                            </div>
+                        </div>
+
+
+                    </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="col-sm-8" >
+                    
+                    @RenderBody()
+                </div>
+
+
+
+            </div>
+        </div>
+
+        <!--End of Tawk.to Script-->
+        <script type="text/javascript">
+            var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+            (function () {
+                var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+                s1.async = true;
+                s1.src = 'https://embed.tawk.to/5f01b80e760b2b560e6fc4c1/default';
+                s1.charset = 'UTF-8';
+                s1.setAttribute('crossorigin', '*');
+                s0.parentNode.insertBefore(s1, s0);
+            })();
+        </script>
+        <!--End of Tawk.to Script-->
+
+
+        <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+        <footer class="footer1" style="background:linear-gradient(#10473f,#00483e); color:white ; margin-top:40px">
+            <div class="container">
+
+                <div class="row">
+                    <!-- row -->
+
+                    <div class="col-lg-3 col-md-3">
+                        <!-- widgets column left -->
+                        <ul class="list-unstyled clear-margins">
+                            <!-- widgets -->
+
+                            <li class="widget-container widget_nav_menu">
+                                <!-- widgets list -->
+
+                                <h3 class="title-widget"><i class="fa fa-question-circle-o" aria-hidden="true"></i> HỖ TRỢ - DỊCH VỤ</h3>
+
+                                <ul>
+                                    <li>
+                                        <strong>Tổng đài hỗ trợ:</strong>
+                                        <b>
+                                            <a href="tel:0971600489">0971600489</a>
+                                        </b>
+                                    </li>
+
+
+                                </ul>
+                                <ul>
+                                    <li>
+                                        <strong>Chăm sóc khách hàng & Giải đáp thắc mắc:</strong>
+
+                                    </li>
+
+                                    <b>
+                                        <a href="tel:0971600489">0971600489</a>
+                                        <i> (08:30 - 12:00; 13:30 - 21:30)</i>
+                                    </b>
+
+
+                                </ul>
+                                <ul>
+                                    <li>
+                                        <strong>Tư vấn & Mua hàng trực tuyến:</strong>
+
+                                    </li>
+
+                                    <b>
+                                        <a href="tel:0971600489">0971600489</a>
+                                        <i> (08:30 - 12:00; 13:30 - 21:30)</i>
+                                    </b>
+
+
+                                </ul>
+                                <ul>
+                                    <li>
+                                        <strong>Hỗ trợ - Dịch vụ</strong>
+
+                                    </li>
+                                </ul>
+                            </li>
+
+                        </ul>
+
+
+                    </div><!-- widgets column left end -->
+
+
+
+                    <div class="col-lg-6 col-md-6">
+                        <!-- widgets column left -->
+
+                        <ul class="list-unstyled clear-margins">
+                            <!-- widgets -->
+
+                            <li class="widget-container widget_nav_menu">
+                                <!-- widgets list -->
+
+                                <h3 class="title-widget"><i class="fa fa-map-marker" aria-hidden="true"></i> HỆ THỐNG CỬA HÀNG TRÊN TOÀN QUỐC</h3>
+
+                                <div class="col-lg-6 col-md-6">
+                                    <b>
+                                        Khu vực Hà Nội
+                                    </b>
+                                    <h5 class="title-widget"><i class="fa fa-paper-plane" aria-hidden="true"></i> 3 Cầu giấy </h5>
+                                    <h5 class="title-widget"><a href="@Url.Action("XemBanDo1","Home")" style="color:white">Bản đồ đường đi</a> </h5>
+
+
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <b>
+                                        Khu vực Hồ Chí Minh
+                                    </b>
+                                    <h5 class="title-widget"><i class="fa fa-paper-plane" aria-hidden="true"></i> 2 Võ Oanh </h5>
+                                    <h5 class="title-widget"><a href="@Url.Action("XemBanDo2","Home")" style="color:white">Bản đồ đường đi</a> </h5>
+
+
+                                </div>
+
+                            </li>
+
+                        </ul>
+
+
+                    </div><!-- widgets column left end -->
+
+
+
+
+
+
+                    <div class="col-lg-3 col-md-3">
+                        <!-- widgets column center -->
+
+
+
+                        <ul class="list-unstyled clear-margins">
+                            <!-- widgets -->
+
+                            <li class="widget-container widget_recent_news">
+                                <!-- widgets list -->
+
+                                <h3 class="title-widget"><i class="fa fa-share" aria-hidden="true"></i> THÔNG TIN LIÊN HỆ</h3>
+
+                                <div class="footerp">
+
+
+                                    <p><b>Email id:</b> <a href="mailto:tungtrinh99@gmail.com">tungtrinh99@gmail.com</a></p>
+                                    <p>
+                                        <b>Helpline Numbers </b>
+
+                                        <b style="color:#ffc106;">(8AM to 10PM):</b>  +84-971600489
+                                    </p>
+
+                                    <p><b>Corp Office / Postal Address</b></p>
+                                    <p><b>Phone Numbers : </b>0971600489, </p>
+                                    <p> 0976476209, 01655576124</p>
+                                </div>
+
+                                <div class="social-icons">
+
+                                    <ul class="nomargin">
+
+                                        <a href="https://www.facebook.com/tungtrinh99"><i class="fa fa-facebook-square" id="social" style="font-size:24px"></i></a>
+                                        <a href="https://www.instagram.com/xuantungg17/"><i class="fa fa-instagram" id="social" style="font-size:24px"></i></a>
+                                        <a href="https://www.youtube.com/channel/UC55GLVve6i8MR644qNdddtA?view_as=subscriber"><i class="fa fa-youtube-play" id="social" style="font-size:24px"></i></a>
+                                        <a href="mailto:tungtrinh99@gmail.com"><i class="fa fa-envelope-square fa-3x social-em" id="social" style="font-size:24px"></i></a>
+
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!--header-->
+
+        <div class="footer-bottom" style="background:#009a82">
+
+            <div class="container">
+
+                <div class="row">
+
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+
+                        <div class="copyright" style="color:white">
+
+                            © Copy All rights reserved 2020 - Copyright by xuantungtrinh99
+                        </div>
+
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        <script>
+            //Get the button
+            var mybutton = document.getElementById("myBtn");
+
+            // When the user scrolls down 20px from the top of the document, show the button
+            window.onscroll = function () { scrollFunction() };
+
+            function scrollFunction() {
+                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    mybutton.style.display = "block";
+                } else {
+                    mybutton.style.display = "none";
+                }
+            }
+
+            // When the user clicks on the button, scroll to the top of the document
+            function topFunction() {
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
+            }
+        </script>
+    </body>
+</html>
